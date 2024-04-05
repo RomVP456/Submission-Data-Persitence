@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,6 +13,8 @@ public class MainManager : MonoBehaviour
     public Rigidbody Ball;
 
     public Text ScoreText;
+    public Text BestScoreText;
+    public TMP_Text CurrentPlayer;
     public GameObject GameOverText;
     
     private bool m_Started = false;
@@ -36,6 +40,17 @@ public class MainManager : MonoBehaviour
                 brick.onDestroyed.AddListener(AddPoint);
             }
         }
+        if (DataManager.DataInstance != null)
+        {
+            // SetColor(MainManager.Instance.teamColor);
+            print(DataManager.DataInstance.playerName);
+            string plyrName1 = DataManager.DataInstance.playerName;
+            string bestPlayerName = DataManager.DataInstance.bestPlayer.playerName;
+            int bestPlayerScore = DataManager.DataInstance.bestPlayer.score;
+
+            CurrentPlayer.text = $"Now playing: {plyrName1}";
+            BestScoreText.text = $"Best Score: {bestPlayerName}: {bestPlayerScore}";
+        }
     }
 
     private void Update()
@@ -45,7 +60,7 @@ public class MainManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 m_Started = true;
-                float randomDirection = Random.Range(-1.0f, 1.0f);
+                float randomDirection = UnityEngine.Random.Range(-1.0f, 1.0f);
                 Vector3 forceDir = new Vector3(randomDirection, 1, 0);
                 forceDir.Normalize();
 
@@ -72,5 +87,9 @@ public class MainManager : MonoBehaviour
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+        if(m_Points>=DataManager.DataInstance.bestPlayer.score){
+            DataManager.DataInstance.bestPlayer.score = m_Points;
+            DataManager.DataInstance.bestPlayer.playerName = DataManager.DataInstance.playerName;
+        }
     }
 }
