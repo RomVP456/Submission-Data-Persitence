@@ -44,10 +44,10 @@ public class MainManager : MonoBehaviour
         {
             // SetColor(MainManager.Instance.teamColor);
             print(DataManager.DataInstance.playerName);
+            DataManager.DataInstance.LoadBest();
             string plyrName1 = DataManager.DataInstance.playerName;
             string bestPlayerName = DataManager.DataInstance.bestPlayer.playerName;
             int bestPlayerScore = DataManager.DataInstance.bestPlayer.score;
-
             CurrentPlayer.text = $"Now playing: {plyrName1}";
             BestScoreText.text = $"Best Score: {bestPlayerName}: {bestPlayerScore}";
         }
@@ -70,9 +70,13 @@ public class MainManager : MonoBehaviour
         }
         else if (m_GameOver)
         {
+            
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+            if (Input.GetKeyDown(KeyCode.K)){
+                SceneManager.LoadScene(0);
             }
         }
     }
@@ -91,5 +95,7 @@ public class MainManager : MonoBehaviour
             DataManager.DataInstance.bestPlayer.score = m_Points;
             DataManager.DataInstance.bestPlayer.playerName = DataManager.DataInstance.playerName;
         }
+        DataManager.DataInstance.SaveBest();
     }
+    
 }

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using System.IO;
+
 
 public class DataManager : MonoBehaviour
 {
@@ -40,5 +42,25 @@ public class DataManager : MonoBehaviour
     }
     public void ChangeLevel(){
         SceneManager.LoadScene(1);
+    }
+    public void SaveBest()
+    {
+        BestPlayer data = bestPlayer;
+
+        string json = JsonUtility.ToJson(data);
+    
+        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+    }
+    public void LoadBest()
+    {
+        string path = Application.persistentDataPath + "/savefile.json";
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            BestPlayer data = JsonUtility.FromJson<BestPlayer>(json);
+
+            bestPlayer = data;
+            print($"aquired best data {data}");
+        }
     }
 }
