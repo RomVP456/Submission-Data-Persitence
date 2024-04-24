@@ -152,8 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c718eab4da5633745a27f1c3e68cd295, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerName: 
-  nameField: {fileID: 0}
+  nameField: {fileID: 1967005217}
 --- !u!4 &547608705
 Transform:
   m_ObjectHideFlags: 0
@@ -1614,8 +1613,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1653004273}
-        m_TargetAssemblyTypeName: DataManager, Assembly-CSharp
+      - m_Target: {fileID: 547608704}
+        m_TargetAssemblyTypeName: SceneManagement, Assembly-CSharp
         m_MethodName: setPlayerName
         m_Mode: 1
         m_Arguments:
